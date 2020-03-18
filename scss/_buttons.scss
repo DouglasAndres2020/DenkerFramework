@@ -1,0 +1,143 @@
+
+/*  Denker 1.1 ©2020
+           Buttons
+========================================================================== */
+@mixin button($colorbg...) {
+    $button-border:2px;
+    $button-h:10;
+       display: inline-block;
+       cursor: pointer;
+       letter-spacing: .5px;
+       text-transform: uppercase;
+       background:map-get($denker-color,nth($colorbg,1));
+       margin:5px;
+       font-size: 14px;
+       position: relative;
+       text-decoration: none;
+       z-index:20;
+       @extend .radius;
+       color:white;
+       padding:10px;
+       @extend .z-depth-1;
+       transition: all ease .5s;
+       &:hover {
+           @extend .z-depth-1-half;
+           background:lighten(map-get($denker-color,nth($colorbg,1)),$button-h);
+       }
+       @if length($colorbg) > 1{
+           @for $i from 2 through length($colorbg) {
+               &.#{nth($colorbg,$i)}{
+                   background: map-get($denker-color,nth($colorbg,$i)) !important;
+                   &:hover {
+                       background: lighten(map-get($denker-color,nth($colorbg,$i)),$button-h) !important;
+                   }
+               }
+           }
+       }
+       &.rounded {
+           border-radius: 50px;
+       }
+       &.borderer {
+           background:none !important;
+           border:$button-border solid map-get($denker-color,nth($colorbg,1));
+           box-shadow: none !important;
+           color:map-get($denker-color,nth($colorbg,1)) !important;
+           @if length($colorbg) > 1{
+               @for $i from 2 through length($colorbg) {
+                   &.#{nth($colorbg,$i)}{
+                       border: $button-border solid map-get($denker-color,nth($list: $colorbg, $n: $i)) !important ;
+                       color:  map-get($denker-color,nth($list: $colorbg, $n: $i)) !important ;
+                       &:hover{
+                           background:map-get($denker-color,nth($list: $colorbg, $n: $i)) !important;
+                           color:white !important;
+                       }
+                   
+                   }
+               }
+           }
+           &:hover {
+               background:map-get($denker-color,nth($colorbg,1)) !important;
+               color:white !important;
+           }
+       }
+       &.hovered {
+            background:none !important;
+            box-shadow: none !important;
+            color:map-get($denker-color,nth($colorbg,1)) !important;
+            &:before{
+                content:"";
+                width: 0%;
+                height: 100%;
+                position: absolute;
+                left:50%;
+                bottom:0;
+                background:map-get($denker-color,nth($colorbg,1));
+                transition: all ease .5s;
+                @extend .radius;
+                z-index:-1 !important;
+            };
+            @if length($colorbg) > 1{
+                @for $i from 2 through length($colorbg) {
+                    &.#{nth($colorbg,$i)}{
+                        color:  map-get($denker-color,nth($colorbg,$i)) !important ;
+                        &:hover {
+                            color:white !important;
+                        }
+                        &:before{
+                            background:map-get($denker-color,nth($colorbg,$i)) !important ;
+                        }
+                    }
+                }
+            };
+            &:hover{
+                background: none !important;
+                @extend .white-text;
+                z-index: 1 !important;
+                &:before{
+                    width: 100%;
+                    left:0%;
+                }
+            }
+
+       }
+      
+}
+.bdn,.bdn-big,.bdn-small,.bdn-float,.bdn-flat {
+    @include button(map-keys($denker-color)...);
+    &.disabled{
+        color:#9f9f9f !important;
+        background:#dfdfdf !important;
+        cursor: default;
+        box-shadow: none;
+    }
+}
+.bdn-big{
+    font-size: 15px;
+    padding:15px;
+}
+.bdn-ssmall{
+    font-size: 10px;
+    padding:5px;
+}
+.bdn-small{
+    font-size: 14px;
+    padding:8px;
+}
+.bdn-float{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 900;
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+}
+.bdn-flat{
+    box-shadow: none !important;
+    &.disabled{
+        color:#9f9f9f !important;
+        background:transparent !important;
+        cursor: default;
+    }
+}

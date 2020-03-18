@@ -1,0 +1,269 @@
+/*  Denker 1.1 ©2020
+           global
+========================================================================== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family:map-get($font,"font") !important;
+}
+
+//font-sizes create
+
+
+@each $font, $c in $font {
+    @if $font != font {
+        #{$font}{
+            font-size: $c;
+        }
+    }
+}
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 100;
+}
+
+.radius {
+    border-radius: 3px;
+}
+
+//create margin clases AND padding clases
+@for $i from 1 through 20 {
+    .m-g#{$i}{margin:#{$i}px !important;}
+    .m-t#{$i}{margin-top:#{$i}px !important;}
+    .m-b#{$i}{margin-bottom:#{$i}px !important;}
+    .m-l#{$i}{margin-left:#{$i}px !important;}
+    .m-r#{$i}{margin-right:#{$i}px !important;}
+
+    .p-g#{$i}{padding:#{$i}px !important;}
+    .p-t#{$i}{padding-top:#{$i}px !important;}
+    .p-b#{$i}{padding-bottom:#{$i}px !important;}
+    .p-l#{$i}{padding-left:#{$i}px !important;}
+    .p-r#{$i}{padding-right:#{$i}px !important;}
+}
+.dy{&.block{display:block;}&.inline-block{display:inline-block;}&.flex{display:flex;}&.inline-flex{display:inline-flex;}&.initial{display:initial;}&.grid{display:grid;}}
+// z-depth elevation
+.z-depth-1 {box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);}.z-depth-1-half {box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);}.z-depth-2 {box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.3);}.z-depth-3 {box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12),0 5px 5px -3px rgba(0, 0, 0, 0.2);}.z-depth-4 {box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14),0 6px 30px 5px rgba(0,0,0,0.12),0 8px 10px -7px rgba(0,0,0,0.2);}.z-depth-5 {box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14),0 9px 46px 8px rgba(0,0,0,0.12),0 11px 15px -7px rgba(0,0,0,0.2);}
+
+.badge {
+    padding:5px;
+    margin:5px;
+    @extend .radius;
+    @extend .blue;
+    font-size: 0.879em;
+    color: white;
+    display: inline-flex;
+    order: 1;
+    &.new {
+        &:before {
+            content: 'new';
+            padding:0px 3px;
+            order: 2;
+            
+        }
+    }
+}
+.coding {
+    @extend h5;
+    transition: all ease .25s;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+
+
+/*  Denker 1.1 ©2020
+           collapsibles
+========================================================================== */
+.colapse {
+    background-color: #51b8f4;
+    color: #fff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    position: relative;
+    &:before{
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        left:0;
+        opacity: 0;
+        background:rgba(0,0,0,0.10);
+        transition:all ease  .4s;
+    }
+}
+
+.active, .colapse:hover {
+    &:before{
+        opacity: 1;
+    }
+  }
+  
+  .panel {
+    padding: 0 20px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border-left:1px solid #ddd ;
+    border-bottom:1px solid #ddd ;
+    border-right:1px solid #ddd ;
+    p{
+        padding: 10px;
+    }
+  }
+/*  Denker 1.1 ©2020
+           collapsibles
+========================================================================== */
+$s-width: 1.5rem !default;
+$colapseTopMargin: $s-width/3 !default;
+$ColapseBottomMargin: ($s-width*2)/3 !default;
+$ColapseBorderColor: #ddd !default;
+
+.supercollapsible {
+    border-top: 1px solid $ColapseBorderColor;
+    border-right: 1px solid $ColapseBorderColor;
+    border-left: 1px solid $ColapseBorderColor;
+    margin: $colapseTopMargin 0 $ColapseBottomMargin 0;
+    @extend .z-depth-1;
+}
+.collapsible{
+    .panel,button{
+        transition: all ease .32s;
+    }
+    transition: all ease .32s;
+}
+.collapsible.pop {
+    transform: scale(1.01) translate(-15px,-15px);
+    margin:20px;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+.panel p {
+    margin:20px 0px;
+}
+
+
+/*  Denker 1.1 ©2020
+           pagination
+========================================================================== */
+ul.pagination {
+    display: flex;
+    align-items: center;
+    li{
+        list-style: none;
+        margin:3px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        $focus:#e0dfdf;
+        $calc:10;
+        &:nth-child(1){
+            a{
+                background:darken($focus,($calc * 0.8));
+                &:hover{
+                    background:darken($focus,($calc * 1.8));
+                }
+            }
+        }
+        &:nth-last-child(1){
+            a{
+                background:darken($focus,($calc * 0.8));
+                &:hover{
+                    background:darken($focus,($calc * 1.8));
+                }
+            }
+        }
+        a{
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 27px;
+            height: 27px;
+            border-radius: .25rem;
+            background:$focus;
+            &:hover{
+                background:darken($focus,$calc);
+            }
+            color:black;
+            &.active{
+                background:map-get($denker-color,blue);
+                color:white;
+                &:hover{
+                    background:darken(map-get($denker-color,blue),$calc);
+                }
+            }
+        }
+    }
+}
+
+/*  Denker 1.1 ©2020
+           ProggresBar circular
+========================================================================== */
+.percent {
+	position: relative;
+	display: inline-block;
+	margin: 15px;
+	text-align: center;
+	svg {
+		position: relative;
+		width: 150px;
+		height: 150px;
+		circle {
+			width: 150px;
+			height: 150px;
+			fill: none;
+			stroke-width: 10;
+			stroke: #000;
+			transform: translate(5px,5px);
+			stroke-dasharray: 440;
+			stroke-dashoffset: 440;
+			stroke-linecap: round;
+			&:nth-child(1) {
+				stroke-dashoffset: 0;
+				stroke: transparent;
+			}
+			&:nth-child(2) {
+				transition: all cubic-bezier(0.01, 0.4, 0.54, 1.1) .5s;
+			}
+		}
+	}
+	.number {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #999;
+		h2 {
+			font-size: 48px;
+			span {
+				font-size: 24px;
+			}
+		}
+	}
+}
+.boxx {
+	position: relative;
+	width: 150px;
+	height: 150px;
+	display: inline-block;
+}
+.text {
+	padding: 10px 0 0;
+	color: #999;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}

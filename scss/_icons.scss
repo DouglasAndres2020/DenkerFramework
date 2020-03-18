@@ -1,0 +1,37 @@
+
+/*  Denker 1.1 ©2020
+           animated icons
+========================================================================== */
+
+@function rotate-mixin($one){$degi:$one;@return #{$one}deg;};
+@function rotate-mixin-two($second){$degi:$second;@return #{$second}deg;}
+
+@mixin arrow($firs,$two) {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+    padding: 5px;
+    transition: all ease .5s;
+    .arrow-der{
+        transform: rotate( rotate-mixin($firs) );
+        display: inline-block;
+        width: 0; 
+        height: 0; 
+        border-left: 12px solid black;
+        border-top:10px solid transparent;
+        border-bottom:10px solid transparent; 
+        transition: all ease .5s;
+    }
+    &.ok{
+        .arrow-der{
+         transform: rotate( rotate-mixin-two($two) );
+        }
+    }
+}
+.arrow{@include arrow(0, 180)}
+.arrowToUp{@include arrow(90, 270)}
+.arrowToR{@include arrow(180, 0)}
+.arrowToB{@include arrow(270,90)}

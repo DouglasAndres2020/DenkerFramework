@@ -1,0 +1,44 @@
+
+/*  Denker 1.1 ©2020
+           colors clases an gradiant clssses
+========================================================================== */
+
+@each $heading, $color in $denker-color {  
+    .#{$heading}-text{
+        color:$color !important;
+        @for $i from 1 through $max {
+            &.text-lighten-#{$i}{
+                color:lighten($color ,$i * $multi) !important;
+            }
+        }      
+        @for $i from 1 through $max {
+            &.text-darken-#{$i}{
+                color:darken($color ,$i * $multi) !important;
+            }
+        }
+    }  
+    .#{$heading}{
+        background:$color !important;
+        @for $i from 1 through $max {
+            &.lighten-#{$i}{
+                background:lighten($color ,$i * $multi) !important;
+            }
+        }      
+        @for $i from 1 through $max {
+            &.darken-#{$i}{
+                background:darken($color ,$i * $multi) !important;
+            }
+        }
+    }
+}
+//colors fusion background
+ @each $key,$key_color in $denker-color {
+    $keys: map-keys($denker-color);
+     @for $i from 1 through length($keys) {
+            @if ($key != nth($keys,$i)){
+            .#{$key}-#{nth($keys,$i)}{
+                background: linear-gradient(to right,$key_color,map-get($denker-color,nth($keys,$i))) !important;
+            }
+     }
+}}
+ 
