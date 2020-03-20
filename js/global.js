@@ -300,15 +300,9 @@ const slider = document.querySelectorAll('.slider-container');
 for (let f = 0; f < slider.length; f++) {
     const fill = slider[f].querySelector(':scope .bar .fill')
     const input = slider[f].querySelector('.slider');
-    const drop = slider[f].querySelector('.drop');
-    const html = drop.querySelector('div')
     let attr = input.getAttribute('max');
-    drop.style.left = `calc(${input.value}% - 20px)`
-    html.innerHTML = `${input.value}`
     fill.style.width = `${input.value * (100 / attr)}%`
     input.addEventListener('input',() => {
-        drop.style.left = `calc(${input.value}% - 20px)`
-        html.innerHTML = `${input.value}`
         fill.style.width = `${input.value * (100 / attr)}%`
     })
 }
